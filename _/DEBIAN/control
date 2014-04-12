@@ -1,0 +1,10 @@
+Package: com.phillipt.classylock
+Name: ClassyLock
+Depends: mobilesubstrate
+Architecture: iphoneos-arm
+Description: A classy, reimagined lockscreen!
+Maintainer: Phillip Tennen
+Author: Phillip Tennen
+Section: Tweaks
+Version: 0.0.1-305
+Installed-Size: 2648

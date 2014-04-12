@@ -1,0 +1,10 @@
+{
+    entry = {
+	bundle = ClassyLock;
+	cell = PSLinkCell;
+	detail = ClassyLockListController;
+	icon = ClassyLock.png;
+	isController = 1;
+	label = ClassyLock;
+    };
+}

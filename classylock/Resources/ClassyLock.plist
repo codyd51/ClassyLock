@@ -1,0 +1,299 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>items</key>
+	<array>
+		<dict>
+			<key>cell</key>
+			<string>PSGroupCell</string>
+			<key>footerText</key>
+			<string>All changes apply without a respring</string>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSSwitchCell</string>
+			<key>default</key>
+			<false/>
+			<key>defaults</key>
+			<string>com.phillipt.classylock</string>
+			<key>PostNotification</key>
+			<string>com.phillipt.classylock/preferencechanged</string>
+			<key>key</key>
+			<string>enabled</string>
+			<key>label</key>
+			<string>Enabled</string>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSGroupCell</string>
+			<key>footerText</key>
+			<string>Changes your wallpaper to the best one for ClassyLock.</string>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSSwitchCell</string>
+			<key>default</key>
+			<false/>
+			<key>defaults</key>
+			<string>com.phillipt.classylock</string>
+			<key>PostNotification</key>
+			<string>com.phillipt.classylock/preferencechanged</string>
+			<key>key</key>
+			<string>changeWall</string>
+			<key>label</key>
+			<string>Use Recommended Wallpaper</string>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSGroupCell</string>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSSwitchCell</string>
+			<key>default</key>
+			<false/>
+			<key>defaults</key>
+			<string>com.phillipt.classylock</string>
+			<key>PostNotification</key>
+			<string>com.phillipt.classylock/preferencechanged</string>
+			<key>key</key>
+			<string>darkMode</string>
+			<key>label</key>
+			<string>Dark Mode</string>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSGroupCell</string>
+			<key>footerText</key>
+			<string>Time between weather data refresh (in seconds)</string>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSEditTextCell</string>
+			<key>defaults</key>
+			<string>com.phillipt.classylock</string>
+			<key>PostNotification</key>
+			<string>com.phillipt.classylock/preferencechanged</string>
+			<key>isNumeric</key>
+			<true/>
+			<key>placeholder</key>
+			<string>300</string>
+			<key>key</key>
+			<string>refreshTime</string>
+			<key>label</key>
+			<string>Refresh Interval</string>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSGroupCell</string>
+			<key>label</key>
+			<string>Colored Text</string>
+			<key>footerText</key>
+			<string>Colored text options. Leave blank for defaults.</string>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSEditTextCell</string>
+			<key>defaults</key>
+			<string>com.phillipt.classylock</string>
+			<key>PostNotification</key>
+			<string>com.phillipt.classylock/preferencechanged</string>
+			<key>placeholder</key>
+			<string>Fucking freezing,</string>
+			<key>key</key>
+			<string>freezing</string>
+			<key>label</key>
+			<string>'Freezing' text:</string>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSEditTextCell</string>
+			<key>defaults</key>
+			<string>com.phillipt.classylock</string>
+			<key>PostNotification</key>
+			<string>com.phillipt.classylock/preferencechanged</string>
+			<key>placeholder</key>
+			<string>Cold as</string>
+			<key>key</key>
+			<string>cold</string>
+			<key>label</key>
+			<string>'Cold' text:</string>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSEditTextCell</string>
+			<key>defaults</key>
+			<string>com.phillipt.classylock</string>
+			<key>PostNotification</key>
+			<string>com.phillipt.classylock/preferencechanged</string>
+			<key>placeholder</key>
+			<string>Warm as</string>
+			<key>key</key>
+			<string>warm</string>
+			<key>label</key>
+			<string>'Warm' text:</string>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSEditTextCell</string>
+			<key>defaults</key>
+			<string>com.phillipt.classylock</string>
+			<key>PostNotification</key>
+			<string>com.phillipt.classylock/preferencechanged</string>
+			<key>placeholder</key>
+			<string>Fucking burning,</string>
+			<key>key</key>
+			<string>burning</string>
+			<key>label</key>
+			<string>'Burning' text:</string>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSGroupCell</string>
+			<key>label</key>
+			<string>Fucking text</string>
+			<key>footerText</key>
+			<string>'Fucking' text. Leave blank for defaults.</string>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSEditTextCell</string>
+			<key>defaults</key>
+			<string>com.phillipt.classylock</string>
+			<key>PostNotification</key>
+			<string>com.phillipt.classylock/preferencechanged</string>
+			<key>placeholder</key>
+			<string>fucking</string>
+			<key>key</key>
+			<string>fuckString</string>
+			<key>label</key>
+			<string>'Fucking' text:</string>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSGroupCell</string>
+			<key>label</key>
+			<string>Shit text</string>
+			<key>footerText</key>
+			<string>'Shit' text. Leave blank for defaults.</string>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSEditTextCell</string>
+			<key>defaults</key>
+			<string>com.phillipt.classylock</string>
+			<key>PostNotification</key>
+			<string>com.phillipt.classylock/preferencechanged</string>
+			<key>placeholder</key>
+			<string>shit.</string>
+			<key>key</key>
+			<string>shitString</string>
+			<key>label</key>
+			<string>'Shit' text:</string>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSGroupCell</string>
+			<key>label</key>
+			<string>Small text</string>
+			<key>footerText</key>
+			<string>Small text at bottom of screen. Leave blank for defaults.</string>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSEditTextCell</string>
+			<key>defaults</key>
+			<string>com.phillipt.classylock</string>
+			<key>PostNotification</key>
+			<string>com.phillipt.classylock/preferencechanged</string>
+			<key>placeholder</key>
+			<string>Fuck you, nature.</string>
+			<key>key</key>
+			<string>smallFreezing</string>
+			<key>label</key>
+			<string>'Freezing' text:</string>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSEditTextCell</string>
+			<key>defaults</key>
+			<string>com.phillipt.classylock</string>
+			<key>PostNotification</key>
+			<string>com.phillipt.classylock/preferencechanged</string>
+			<key>placeholder</key>
+			<string>Pack a coat, fuckers.</string>
+			<key>key</key>
+			<string>smallCold</string>
+			<key>label</key>
+			<string>'Cold' text:</string>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSEditTextCell</string>
+			<key>defaults</key>
+			<string>com.phillipt.classylock</string>
+			<key>PostNotification</key>
+			<string>com.phillipt.classylock/preferencechanged</string>
+			<key>placeholder</key>
+			<string>Time to go outside for once!</string>
+			<key>key</key>
+			<string>smallWarm</string>
+			<key>label</key>
+			<string>'Warm' text:</string>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSEditTextCell</string>
+			<key>defaults</key>
+			<string>com.phillipt.classylock</string>
+			<key>PostNotification</key>
+			<string>com.phillipt.classylock/preferencechanged</string>
+			<key>placeholder</key>
+			<string>Wear shorts or some shit.</string>
+			<key>key</key>
+			<string>smallBurning</string>
+			<key>label</key>
+			<string>'Burning' text:</string>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSGroupCell</string>
+			<key>label</key>
+			<string>Donate</string>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSButtonCell</string>
+			<key>label</key>
+			<string>Contribute via PayPal</string>
+			<key>icon</key>
+			<string>PayPal.png</string>
+			<key>action</key>
+			<string>openPayPal</string>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSGroupCell</string>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSGroupCell</string>
+			<key>footerAlignment</key>
+			<integer>1</integer>
+			<key>footerText</key>
+			<string>Special thanks to jaysan1292, for everything.</string>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSGroupCell</string>
+			<key>footerAlignment</key>
+			<integer>1</integer>
+			<key>footerText</key>
+			<string>ClassyLock © 2014 Phillip Tennen</string>
+		</dict>
+	</array>
+	<key>title</key>
+	<string>ClassyLock</string>
+</dict>
+</plist>
