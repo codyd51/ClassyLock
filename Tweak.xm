@@ -21,10 +21,9 @@
 #define kSmallCold [[NSDictionary dictionaryWithContentsOfFile:kSettingsPath] objectForKey:@"smallCold"]
 #define kSmallWarm [[NSDictionary dictionaryWithContentsOfFile:kSettingsPath] objectForKey:@"smallWarm"]
 #define kSmallBurning [[NSDictionary dictionaryWithContentsOfFile:kSettingsPath] objectForKey:@"smallBurning"]
-#define kFreezingBound [[NSDictionary dictionaryWithContentsOfFile:kSettingsPath] objectForKey:@"freezingBound"]
-#define kColdBound [[NSDictionary dictionaryWithContentsOfFile:kSettingsPath] objectForKey:@"coldBound"]
-#define kWarmBound [[NSDictionary dictionaryWithContentsOfFile:kSettingsPath] objectForKey:@"warmBound"]
-#define kBurningBound [[NSDictionary dictionaryWithContentsOfFile:kSettingsPath] objectForKey:@"burningBound"]
+#define kFreezingBound [[[NSDictionary dictionaryWithContentsOfFile:kSettingsPath] objectForKey:@"freezingBound"] intValue]
+#define kColdBound [[[NSDictionary dictionaryWithContentsOfFile:kSettingsPath] objectForKey:@"coldBound"] intValue]
+#define kWarmBound [[[NSDictionary dictionaryWithContentsOfFile:kSettingsPath] objectForKey:@"warmBound"] intValue]
 
 int HEIGHT = 420;
 UILabel *newTime = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 310, HEIGHT)];
@@ -55,6 +54,17 @@ void loadPreferences() {
     else {
         refreshTime = 300.0;
     }
+    /*
+    if (kFreezingBound == nil) {
+        kFreezingBound = 10;
+    }
+    if (kColdBound == nil) {
+        kColdBound = 65;
+    }
+    if (kWarmBound == nil) {
+        kWarmBound = 85;
+    }
+    */
     NSTimeInterval refreshInterval = refreshTime;
 
     if([timer isValid]) [timer invalidate];
@@ -356,42 +366,42 @@ if (kIsEnabled) {
         [wind addSubview:newTime];
     }
 
-	if ([temp intValue] <= 10 && ([kFreezing isEqual:@""] || kFreezing==nil)) {
+	if ([temp intValue] <= kFreezingBound && ([kFreezing isEqual:@""] || kFreezing==nil)) {
 		curseLabel.text = [NSString stringWithFormat:@"Fucking freezing,"];
 		[curseLabel setTextColor:[UIColor colorWithRed:0.0/255.0 green:40.0/255.0 blue:225.0/255.0 alpha:1]];
 		NSLog(@"ClassyLock-%@", temp);
 	}
-	else if ([temp intValue] <= 10 && (![kFreezing isEqual:@""] && kFreezing!=nil)) {
+	else if ([temp intValue] <= kFreezingBound && (![kFreezing isEqual:@""] && kFreezing!=nil)) {
 		curseLabel.text = kFreezing;
 		[curseLabel setTextColor:[UIColor colorWithRed:0.0/255.0 green:40.0/255.0 blue:225.0/255.0 alpha:1]];
 		NSLog(@"ClassyLock-%@", temp);
 	}
-	if ([temp intValue] > 10 && [temp intValue] <= 65 && ([kCold isEqual:@""] || kCold==nil)) {
+	if ([temp intValue] > kFreezingBound && [temp intValue] <= kColdBound && ([kCold isEqual:@""] || kCold==nil)) {
 		curseLabel.text= [NSString stringWithFormat:@"Cold as"];
 		[curseLabel setTextColor:[UIColor colorWithRed:0.0/255.0 green:75.0/255.0 blue:150.0/255.0 alpha:1]];
 		NSLog(@"ClassyLock-%@", temp);
 	}
-	else if ([temp intValue] > 10 && [temp intValue] <= 65 && (![kCold isEqual:@""] && kCold!=nil)) {
+	else if ([temp intValue] > kFreezingBound && [temp intValue] <= kColdBound && (![kCold isEqual:@""] && kCold!=nil)) {
 		curseLabel.text = kCold;
 		[curseLabel setTextColor:[UIColor colorWithRed:0.0/255.0 green:75.0/255.0 blue:150.0/255.0 alpha:1]];
 		NSLog(@"ClassyLock-%@", temp);
 	}
-	if ([temp intValue] > 65 && [temp intValue] <= 85 && ([kWarm isEqual:@""] || kWarm==nil)) {
+	if ([temp intValue] > kColdBound && [temp intValue] <= kWarmBound && ([kWarm isEqual:@""] || kWarm==nil)) {
 		curseLabel.text= [NSString stringWithFormat:@"Warm as"];
 		[curseLabel setTextColor:[UIColor colorWithRed:255/255.0 green:150.0/255.0 blue:0.0/255.0 alpha:1]];
 		NSLog(@"ClassyLock-%@", temp);
 	}
-	else if ([temp intValue] > 65 && [temp intValue] <= 85 && (![kWarm isEqual:@""] && kWarm!=nil)) {
+	else if ([temp intValue] > kColdBound && [temp intValue] <= kWarmBound && (![kWarm isEqual:@""] && kWarm!=nil)) {
 		curseLabel.text = kWarm;
 		[curseLabel setTextColor:[UIColor colorWithRed:255/255.0 green:150.0/255.0 blue:0.0/255.0 alpha:1]];
 		NSLog(@"ClassyLock-%@", temp);
 	}
-	if ([temp intValue] > 85 && ([kBurning isEqual:@""] || kBurning==nil)){
+	if ([temp intValue] > kWarmBound && ([kBurning isEqual:@""] || kBurning==nil)){
 		curseLabel.text= [NSString stringWithFormat:@"Fucking burning,"];
 		[curseLabel setTextColor:[UIColor colorWithRed:225.0/255.0 green:40.0/255.0 blue:0.0/255.0 alpha:1]];
 		NSLog(@"ClassyLock-%@", temp);
 	}
-	else if ([temp intValue] > 85 && ([kBurning isEqual:@""] && kBurning!=nil)) {
+	else if ([temp intValue] > kWarmBound && ([kBurning isEqual:@""] && kBurning!=nil)) {
 		curseLabel.text = kBurning;
 		[curseLabel setTextColor:[UIColor colorWithRed:225.0/255.0 green:40.0/255.0 blue:0.0/255.0 alpha:1]];
 		NSLog(@"ClassyLock-%@", temp);
@@ -424,28 +434,28 @@ if (kIsEnabled) {
         [wind addSubview:resultLabel];
     }
 
-	if (value <= 10 && ([kSmallFreezing isEqual:@""] || kSmallFreezing==nil)) {
+	if (value <= kFreezingBound && ([kSmallFreezing isEqual:@""] || kSmallFreezing==nil)) {
 		wearLabel.text = [NSString stringWithFormat:@"Fuck you, nature."];
 	}
-	else if (value <= 10 && (![kSmallFreezing isEqual:@""] && kSmallFreezing!=nil)) {
+	else if (value <= kFreezingBound && (![kSmallFreezing isEqual:@""] && kSmallFreezing!=nil)) {
 		wearLabel.text = kSmallFreezing;
 	}
-	if (value > 10 && value <= 65 && ([kSmallCold isEqual:@""] || kSmallCold==nil)) {
+	if (value > kFreezingBound && value <= kColdBound && ([kSmallCold isEqual:@""] || kSmallCold==nil)) {
 		wearLabel.text= [NSString stringWithFormat:@"Pack a coat, fuckers."];
 	}
-	else if (value > 10 && value <= 65 && (![kSmallCold isEqual:@""] && kSmallCold!=nil)) {
+	else if (value > kFreezingBound && value <= kColdBound && (![kSmallCold isEqual:@""] && kSmallCold!=nil)) {
 		wearLabel.text = kSmallCold;
 	}
-	if (value > 65 && value <= 85 && ([kSmallWarm isEqual:@""] || kSmallWarm==nil)) {
+	if (value > kColdBound && value <= kWarmBound && ([kSmallWarm isEqual:@""] || kSmallWarm==nil)) {
 		wearLabel.text= [NSString stringWithFormat:@"Time to go outside for once!"];
 	}
-	else if (value > 65 && value <= 85 && (![kSmallWarm isEqual:@""] && kSmallWarm!=nil)) {
+	else if (value > kColdBound && value <= kWarmBound && (![kSmallWarm isEqual:@""] && kSmallWarm!=nil)) {
 		wearLabel.text = kSmallWarm;
 	}
-	if (value > 85 && ([kSmallBurning isEqual:@""] || kSmallBurning==nil)){
+	if (value > kWarmBound && ([kSmallBurning isEqual:@""] || kSmallBurning==nil)){
 		wearLabel.text= [NSString stringWithFormat:@"Wear shorts or some shit."];
 	}
-	else if (value > 85 && ([kSmallBurning isEqual:@""] && kSmallBurning!=nil)) {
+	else if (value > kWarmBound && ([kSmallBurning isEqual:@""] && kSmallBurning!=nil)) {
 		wearLabel.text = kSmallBurning;
 	}
 	[wind addSubview:wearLabel];
