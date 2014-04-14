@@ -352,7 +352,7 @@ if (kIsEnabled) {
 	wearLabel.textAlignment = NSTextAlignmentLeft;
 
 	newTime.text = [NSString stringWithFormat:@"%@", [DateFormatter stringFromDate:[NSDate date]]];
-	if (kShouldShowTime) {
+	if (kShouldShowTime || kShouldShowTime == nil) {
         [wind addSubview:newTime];
     }
 
@@ -415,12 +415,12 @@ if (kIsEnabled) {
 	[wind addSubview:shitLabel];
 
 	tempLabel.text = [NSString stringWithFormat:@"%@° %@", temp, unit];
-	if (kShouldShowTemp) {
+	if (kShouldShowTemp || kShouldShowTemp == nil) {
         [wind addSubview:tempLabel];
     }
 
 	resultLabel.text = [NSString stringWithFormat:@"%@", result];
-	if (kShouldShowCondition) {
+	if (kShouldShowCondition || kShouldShowCondition == nil) {
         [wind addSubview:resultLabel];
     }
 
