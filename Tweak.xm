@@ -8,6 +8,9 @@
 #define kDarkMode [[[NSDictionary dictionaryWithContentsOfFile:kSettingsPath] objectForKey:@"darkMode"] boolValue]
 #define kChangeWall [[[NSDictionary dictionaryWithContentsOfFile:kSettingsPath] objectForKey:@"changeWall"] boolValue]
 #define kRefreshTime [[[NSDictionary dictionaryWithContentsOfFile:kSettingsPath] objectForKey:@"refreshTime"] floatValue]
+#define kShouldShowTemp [[[NSDictionary dictionaryWithContentsOfFile:kSettingsPath] objectForKey:@"showTemp"] boolValue]
+#define kShouldShowCondition [[[NSDictionary dictionaryWithContentsOfFile:kSettingsPath] objectForKey:@"showCondition"] boolValue]
+#define kShouldShowTime [[[NSDictionary dictionaryWithContentsOfFile:kSettingsPath] objectForKey:@"showTime"] boolValue]
 #define kFreezing [[NSDictionary dictionaryWithContentsOfFile:kSettingsPath] objectForKey:@"freezing"]
 #define kCold [[NSDictionary dictionaryWithContentsOfFile:kSettingsPath] objectForKey:@"cold"]
 #define kWarm [[NSDictionary dictionaryWithContentsOfFile:kSettingsPath] objectForKey:@"warm"]
@@ -45,16 +48,6 @@ void loadPreferences() {
 
     NSLog(@"ClassyLock--%@", [prefs description]);
 
-        if (!prefs[@"_thisShouldOnlyBeDoneLikeOnceEver"]) {
-        UIAlertView *alert1 = [[UIAlertView alloc] initWithTitle:@"Thanks!" message:@"Thank you for purchasing ClassyLock! If you did not purchase this tweak, please consider donating to phillip.ennen@gmail.com." delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
-        [alert1 show];
-
-        NSLog(@"ClassyLock--UIAlert shown");
-
-        [(NSMutableDictionary*)prefs setObject:@YES forKey:@"_thisShouldOnlyBeDoneLikeOnceEver"];
-        [(NSMutableDictionary*)prefs writeToFile:kSettingsPath atomically:YES];
-        }
-
     CGFloat refreshTime;
     if (kRefreshTime != nil) {
         refreshTime = kRefreshTime;
@@ -77,7 +70,6 @@ void loadPreferences() {
         timer = nil;
 
     }
-    NSLog(@"ClassyLock--settings updated");
 
 }
 
@@ -125,7 +117,7 @@ if (kIsEnabled) {
 	switch ([theCode intValue]) {
 
         case 0:
-            result = @"Tornado";
+            result = @"Something is probably wrong with ClassyLock";
             break;
         case 1:
             result = @"Storm";
@@ -360,7 +352,9 @@ if (kIsEnabled) {
 	wearLabel.textAlignment = NSTextAlignmentLeft;
 
 	newTime.text = [NSString stringWithFormat:@"%@", [DateFormatter stringFromDate:[NSDate date]]];
-	[wind addSubview:newTime];
+	if (kShouldShowTime) {
+        [wind addSubview:newTime];
+    }
 
 	if ([temp intValue] <= 10 && ([kFreezing isEqual:@""] || kFreezing==nil)) {
 		curseLabel.text = [NSString stringWithFormat:@"Fucking freezing,"];
@@ -421,9 +415,14 @@ if (kIsEnabled) {
 	[wind addSubview:shitLabel];
 
 	tempLabel.text = [NSString stringWithFormat:@"%@° %@", temp, unit];
-	[wind addSubview:tempLabel];
+	if (kShouldShowTemp) {
+        [wind addSubview:tempLabel];
+    }
+
 	resultLabel.text = [NSString stringWithFormat:@"%@", result];
-	[wind addSubview:resultLabel];
+	if (kShouldShowCondition) {
+        [wind addSubview:resultLabel];
+    }
 
 	if (value <= 10 && ([kSmallFreezing isEqual:@""] || kSmallFreezing==nil)) {
 		wearLabel.text = [NSString stringWithFormat:@"Fuck you, nature."];
@@ -463,7 +462,7 @@ if (kIsEnabled) {
     [swipe setDirection:UISwipeGestureRecognizerDirectionLeft];
     [swipe setDelaysTouchesBegan:YES];
     [wind addGestureRecognizer:swipe];
-//}
+
 }
 
 else if (!kIsEnabled) {
@@ -512,7 +511,9 @@ else if (!kIsEnabled) {
 		%orig(arg1, arg2);
 	}
 
-	%orig(arg1, arg2);
+	else if (!kIsEnabled) {
+        %orig(arg1, arg2);
+    }
 }
 
 - (BOOL)isTopGrabberHidden {
@@ -521,7 +522,11 @@ else if (!kIsEnabled) {
 		return TRUE;
 	}
 
-	return %orig;
+	else if (!kIsEnabled) {
+        return %orig;
+    }
+
+    return %orig;
 
 }
 
@@ -532,7 +537,9 @@ else if (!kIsEnabled) {
 		%orig(arg1, arg2);
 	}
 
-	%orig(arg1, arg2);
+	else if (!kIsEnabled) {
+        %orig(arg1, arg2);
+    }
 }
 
 - (BOOL)isBottomGrabberHidden {
@@ -541,7 +548,11 @@ else if (!kIsEnabled) {
 		return TRUE;
 	}
 
-	return %orig;
+	else if (!kIsEnabled) {
+        return %orig;
+    }
+
+    return %orig;
 
 }
 
@@ -552,7 +563,9 @@ else if (!kIsEnabled) {
 		%orig(arg1, arg2);
 	}
 
-	%orig(arg1, arg2);
+	else if (!kIsEnabled) {
+        %orig(arg1, arg2);
+    }
 }
 
 %end
@@ -565,6 +578,10 @@ else if (!kIsEnabled) {
         return FALSE;
     }
 
+   else if (!kIsEnabled) {
+        return %orig;
+    }
+
     return %orig;
 
 }
@@ -573,6 +590,10 @@ else if (!kIsEnabled) {
 
     if (kIsEnabled) {
         return 0.0;
+    }
+
+    else if (!kIsEnabled) {
+        return %orig;
     }
 
     return %orig;
@@ -625,6 +646,10 @@ else if (!kIsEnabled) {
     	return 0;
     }
 
+    else if (!kIsEnabled) {
+        return %orig;
+    }
+
     return %orig;
 
 }
@@ -637,7 +662,9 @@ else if (!kIsEnabled) {
 		%orig(style);
 	}
 
-	%orig(style);
+	else if (!kIsEnabled) {
+        %orig(style);
+    }
 
 }
 

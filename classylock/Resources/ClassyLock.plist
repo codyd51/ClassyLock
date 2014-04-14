@@ -65,6 +65,52 @@
 		<dict>
 			<key>cell</key>
 			<string>PSGroupCell</string>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSSwitchCell</string>
+			<key>default</key>
+			<true/>
+			<key>defaults</key>
+			<string>com.phillipt.classylock</string>
+			<key>PostNotification</key>
+			<string>com.phillipt.classylock/preferencechanged</string>
+			<key>key</key>
+			<string>showTemp</string>
+			<key>label</key>
+			<string>Show Temperature</string>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSSwitchCell</string>
+			<key>default</key>
+			<true/>
+			<key>defaults</key>
+			<string>com.phillipt.classylock</string>
+			<key>PostNotification</key>
+			<string>com.phillipt.classylock/preferencechanged</string>
+			<key>key</key>
+			<string>showCondition</string>
+			<key>label</key>
+			<string>Show Condition</string>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSSwitchCell</string>
+			<key>default</key>
+			<false/>
+			<key>defaults</key>
+			<string>com.phillipt.classylock</string>
+			<key>PostNotification</key>
+			<string>com.phillipt.classylock/preferencechanged</string>
+			<key>key</key>
+			<string>showTime</string>
+			<key>label</key>
+			<string>Show Time</string>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSGroupCell</string>
 			<key>footerText</key>
 			<string>Time between weather data refresh (in seconds)</string>
 		</dict>
