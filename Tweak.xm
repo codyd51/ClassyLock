@@ -48,12 +48,7 @@ void loadPreferences() {
     NSLog(@"ClassyLock--%@", [prefs description]);
 
     CGFloat refreshTime;
-    if (kRefreshTime != nil) {
-        refreshTime = kRefreshTime;
-    }
-    else {
-        refreshTime = 300.0;
-    }
+    refreshTime = (kRefreshTime != nil) ? kRefreshTime : 300.0;
     /*
     if (kFreezingBound == nil) {
         kFreezingBound = 10;
@@ -90,13 +85,7 @@ void loadPreferences() {
 if (kIsEnabled) {
 
 	if (kChangeWall) {
-		if (!kDarkMode) {
-			backImage = [CustUIImage imageWithColor:[UIColor whiteColor]];
-		}
-
-		else if (kDarkMode) {
-			backImage = [CustUIImage imageWithColor:[UIColor blackColor]];
-		}
+        backImage = kDarkMode ? [CustUIImage imageWithColor:[UIColor blackColor]] : [CustUIImage imageWithColor:[UIColor whiteColor]];
 
 		// Getting the _lockscreenWallpaperView ivar
 		SBWallpaperController* wpc = [%c(SBWallpaperController) sharedInstance];
@@ -108,7 +97,7 @@ if (kIsEnabled) {
 		[content setImage:backImage];
 	}
 
-    UIView *wind = MSHookIvar<UIView *>(self, "_foregroundView");
+    UIView* wind = MSHookIvar<UIView *>(self, "_foregroundView");
 
     [newBack removeFromSuperview];
     [newTime removeFromSuperview];
@@ -136,32 +125,32 @@ if (kIsEnabled) {
             result = @"Hurricane";
             break;
         case 3:
-            result = @"Thunderstorm";
-            break;
         case 4:
+        case 37:
+        case 38:
+        case 39:
+        case 45:
+        case 47:
             result = @"Thunderstorm";
             break;
         case 5:
+        case 15:
+        case 16:
             result = @"Snow";
             break;
         case 6:
-            result = @"Sleet";
-            break;
         case 7:
+        case 18:
             result = @"Sleet";
             break;
         case 8:
+        case 10:
             result = @"Rain";
             break;
         case 9:
             result = @"Drizzle";
             break;
-        case 10:
-            result = @"Rain";
-            break;
         case 11:
-            result = @"Showers";
-            break;
         case 12:
             result = @"Showers";
             break;
@@ -171,17 +160,9 @@ if (kIsEnabled) {
         case 14:
             result = @"Snow Showers";
             break;
-        case 15:
-            result = @"Snow";
-            break;
-        case 16:
-            result = @"Snow";
-            break;
         case 17:
+        case 35:
             result = @"Hail";
-            break;
-        case 18:
-            result = @"Sleet";
             break;
         case 19:
             result = @"Dust";
@@ -205,17 +186,9 @@ if (kIsEnabled) {
             result = @"Cold";
             break;
         case 26:
-            result = @"Cloudy";
-            break;
         case 27:
-            result = @"Cloudy";
-            break;
         case 28:
-            result = @"Cloudy";
-            break;
         case 29:
-            result = @"Cloudy";
-            break;
         case 30:
             result = @"Cloudy";
             break;
@@ -226,57 +199,28 @@ if (kIsEnabled) {
             result = @"Sunny";
             break;
         case 33:
-            result = @"Fair";
-            break;
         case 34:
             result = @"Fair";
             break;
-        case 35:
-            result = @"Hail";
-            break;
         case 36:
             result = @"Hot";
-            break;
-        case 37:
-            result = @"Thunderstorm";
-            break;
-        case 38:
-            result = @"Thunderstorm";
-            break;
-        case 39:
-            result = @"Thunderstorm";
             break;
         case 40:
             result = @"Showers";
             break;
         case 41:
-            result = @"Snowy";
-            break;
         case 42:
-            result = @"Snowy";
-            break;
         case 43:
+        case 46:
             result = @"Snowy";
             break;
         case 44:
             result = @"Cloudy";
             break;
-        case 45:
-            result = @"Thunderstorm";
-            break;
-        case 46:
-            result = @"Snowy";
-            break;
-        case 47:
-            result = @"Thunderstorm";
-            break;
         case 3200:
-            result = @"Not Available";
-            break;
         default:
             result = @"Not Available";
             break;
-
     }
 
     NSString *unit = nil;
@@ -408,20 +352,10 @@ if (kIsEnabled) {
 	}
 	[wind addSubview:curseLabel];
 
-	if ([kFuckString isEqual:@""] || kFuckString==nil) {
-		fuckLabel.text = [NSString stringWithFormat:@"fucking"];
-	}
-	else if (![kFuckString isEqual:@""] && kFuckString!=nil) {
-		fuckLabel.text = kFuckString;
-	}
+    fuckLabel.text = ([kFuckString isEqual:@""] || kFuckString == nil) ? [NSString stringWithFormat:@"fucking"] : kFuckString;
 	[wind addSubview:fuckLabel];
 
-	if ([kShitString isEqual:@""] || kShitString==nil) {
-		shitLabel.text = [NSString stringWithFormat:@"shit."];
-	}
-	else if (![kShitString isEqual:@""] && kShitString!=nil) {
-		shitLabel.text = kShitString;
-	}
+    shitLabel.text = ([kShitString isEqual:@""] || kShitString == nil) ? [NSString stringWithFormat:@"shit."] : kShitString;
 	[wind addSubview:shitLabel];
 
 	tempLabel.text = [NSString stringWithFormat:@"%@° %@", temp, unit];
@@ -505,117 +439,53 @@ else if (!kIsEnabled) {
 }
 
 -(void)setCustomSlideToUnlockText:(id)arg1 {
-
-    if (kIsEnabled) {
+    if(kIsEnabled) {
         arg1 = @"";
     }
-
     %orig(arg1);
-
 }
 
-- (void)setTopGrabberHidden:(BOOL)arg1 forRequester:(id)arg2 {
-
+-(void)setTopGrabberHidden:(BOOL)arg1 forRequester:(id)arg2 {
 	if (kIsEnabled) {
 		arg1 = TRUE;
-		%orig(arg1, arg2);
 	}
-
-	else if (!kIsEnabled) {
-        %orig(arg1, arg2);
-    }
+    %orig(arg1, arg2);
 }
 
-- (BOOL)isTopGrabberHidden {
-
-	if (kIsEnabled) {
-		return TRUE;
-	}
-
-	else if (!kIsEnabled) {
-        return %orig;
-    }
-
-    return %orig;
-
+-(BOOL)isTopGrabberHidden {
+	return kIsEnabled ? TRUE : %orig;
 }
 
-- (void)setBottomGrabberHidden:(BOOL)arg1 forRequester:(id)arg2 {
-
+-(void)setBottomGrabberHidden:(BOOL)arg1 forRequester:(id)arg2 {
 	if (kIsEnabled) {
 		arg1 = TRUE;
-		%orig(arg1, arg2);
 	}
-
-	else if (!kIsEnabled) {
-        %orig(arg1, arg2);
-    }
+    %orig(arg1, arg2);
 }
 
-- (BOOL)isBottomGrabberHidden {
-
-	if (kIsEnabled) {
-		return TRUE;
-	}
-
-	else if (!kIsEnabled) {
-        return %orig;
-    }
-
-    return %orig;
-
+-(BOOL)isBottomGrabberHidden {
+	return kIsEnabled ? TRUE : %orig;
 }
 
-- (void)setCameraGrabberHidden:(BOOL)arg1 forRequester:(id)arg2 {
-
+-(void)setCameraGrabberHidden:(BOOL)arg1 forRequester:(id)arg2 {
 	if (kIsEnabled) {
 		arg1 = TRUE;
-		%orig(arg1, arg2);
 	}
-
-	else if (!kIsEnabled) {
-        %orig(arg1, arg2);
-    }
+    %orig(arg1, arg2);
 }
-
 %end
 
 %hook SBLockScreenViewController
-
-- (BOOL)_shouldShowDate {
-
-    if (kIsEnabled) {
-        return FALSE;
-    }
-
-   else if (!kIsEnabled) {
-        return %orig;
-    }
-
-    return %orig;
-
+-(BOOL)_shouldShowDate {
+    return kIsEnabled ? FALSE : %orig;
 }
 
-- (float)_effectiveOpacityForVisibleDateView {
-
-    if (kIsEnabled) {
-        return 0.0;
-    }
-
-    else if (!kIsEnabled) {
-        return %orig;
-    }
-
-    return %orig;
-
+-(float)_effectiveOpacityForVisibleDateView {
+    return kIsEnabled ? 0.0 : %orig;
 }
 
-- (void)lockScreenView:(id)arg1 didScrollToPage:(int)arg2 {
-
-if (kIsEnabled) {
-
-	if (arg2 != 1) {
-
+-(void)lockScreenView:(id)arg1 didScrollToPage:(int)arg2 {
+    if(kIsEnabled && arg2 != 1 || !kIsEnabled) {
 		[newBack removeFromSuperview];
 		[newTime removeFromSuperview];
 		[curseLabel removeFromSuperview];
@@ -624,74 +494,35 @@ if (kIsEnabled) {
 		[tempLabel removeFromSuperview];
 		[resultLabel removeFromSuperview];
 		[wearLabel removeFromSuperview];
-
-	}
-
+    }
+    %orig;
 }
-
-else if (!kIsEnabled) {
-
-	[newBack removeFromSuperview];
-    [newTime removeFromSuperview];
-    [curseLabel removeFromSuperview];
-    [fuckLabel removeFromSuperview];
-    [shitLabel removeFromSuperview];
-    [tempLabel removeFromSuperview];
-    [resultLabel removeFromSuperview];
-    [wearLabel removeFromSuperview];
-
-}
-
-%orig;
-
-}
-
 %end
 
 %hook SBFGlintyStringView
-
 -(int)chevronStyle {
-
-    if (kIsEnabled) {
-    	return 0;
-    }
-
-    else if (!kIsEnabled) {
-        return %orig;
-    }
-
-    return %orig;
-
+    return kIsEnabled ? 0 : %orig;
 }
 
- -(void)setChevronStyle:(int) style {
-
-
-	if (kIsEnabled) {
-		style = 0;
-		%orig(style);
-	}
-
-	else if (!kIsEnabled) {
-        %orig(style);
+-(void)setChevronStyle:(int)style {
+    if(kIsEnabled) {
+        style = 0;
     }
-
+    %orig(style);
 }
 
 %end
 
 %ctor {
-
     CFNotificationCenterAddObserver(CFNotificationCenterGetDarwinNotifyCenter(),
                                     NULL,
                                     (CFNotificationCallback)loadPreferences,
                                     CFSTR("com.phillipt.classylock/preferencechanged"),
                                     NULL,
                                     CFNotificationSuspensionBehaviorDeliverImmediately);
-
     loadPreferences();
 
-    if ([[UIScreen mainScreen] bounds].size.height == 568) {
+    if([[UIScreen mainScreen] bounds].size.height == 568) {
     	//iphone 4 inch screen (5, 5c, 5s)
     	HEIGHT = 568;
 	}
@@ -702,11 +533,10 @@ else if (!kIsEnabled) {
 	CFErrorRef error;
 	CGDataProviderRef provider = CGDataProviderCreateWithCFData((CFDataRef)fontData);
 	CGFontRef font = CGFontCreateWithDataProvider(provider);
-	if (!CTFontManagerRegisterGraphicsFont(font, &error)) {
+	if(!CTFontManagerRegisterGraphicsFont(font, &error)) {
 		CFStringRef errorDescription = CFErrorCopyDescription(error);
 		CFRelease(errorDescription);
 	}
 	CFRelease(font);
 	CFRelease(provider);
-
 }
