@@ -1,7 +1,7 @@
 #import "ClassyHelper.h"
 
 @implementation ClassyHelper
-+ (instancetype)sharedInstance {
++(instancetype)sharedInstance {
     static dispatch_once_t once = nil;
     static id sharedInstance = nil;
     
@@ -15,10 +15,8 @@
     return sharedInstance;
 }
 
-- (void)refreshWeather {
-
-    if ([[WeatherPreferences sharedPreferences] isCelsius] == FALSE) {
-        
+-(void)refreshWeather {
+    if([[WeatherPreferences sharedPreferences] isCelsius] == FALSE) {
          //update
         [[[WeatherPreferences sharedPreferences] localWeatherCity] update];
         //BOOL _autoUpdate;
@@ -31,12 +29,8 @@
         //turn back off
         [[WeatherPreferences sharedPreferences] setCelsius:FALSE];
         
-        NSLog(@"ClassyLock--Weather updated--Celsius false");
-        
-    }
-    
-     else if ([[WeatherPreferences sharedPreferences] isCelsius] == TRUE) {
-        
+        NSLog(@"ClassyLock--Weather updated--Celsius false"); 
+    } else { 
         //update
         [[[WeatherPreferences sharedPreferences] localWeatherCity] update];
         //turn off celsius
@@ -44,9 +38,7 @@
         //turn back on
         [[WeatherPreferences sharedPreferences] setCelsius:TRUE];
         
-        NSLog(@"ClassyLock--Weather updated--Celsius true");
-        
+        NSLog(@"ClassyLock--Weather updated--Celsius true"); 
     }
-
 }
 @end

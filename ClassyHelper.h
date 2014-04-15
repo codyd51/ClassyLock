@@ -1,4 +1,4 @@
 @interface ClassyHelper : NSObject
-+ (instancetype)sharedInstance;
-- (void)refreshWeather;
++(instancetype)sharedInstance;
+-(void)refreshWeather;
 @end

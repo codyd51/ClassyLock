@@ -26,23 +26,22 @@
 #define kWarmBound [[[NSDictionary dictionaryWithContentsOfFile:kSettingsPath] objectForKey:@"warmBound"] intValue]
 
 int HEIGHT = 420;
-UILabel *newTime = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 310, HEIGHT)];
-UILabel *curseLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 310, HEIGHT)];
-UILabel *fuckLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 310, HEIGHT)];
-UILabel *shitLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 310, HEIGHT)];
-UILabel *tempLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 310, HEIGHT)];
-UILabel *resultLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 310, HEIGHT)];
-UILabel *wearLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 310, HEIGHT)];
-NSMutableDictionary *prefs = nil;
+UILabel* newTime = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 310, HEIGHT)];
+UILabel* curseLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 310, HEIGHT)];
+UILabel* fuckLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 310, HEIGHT)];
+UILabel* shitLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 310, HEIGHT)];
+UILabel* tempLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 310, HEIGHT)];
+UILabel* resultLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 310, HEIGHT)];
+UILabel* wearLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 310, HEIGHT)];
+NSMutableDictionary* prefs = nil;
 long currCode = nil;
-NSString *temp = nil;
-NSString *theCode = [NSString stringWithFormat:@"%ld", currCode];
-NSString *result = nil;
-NSTimer *timer = nil;
+NSString* temp = nil;
+NSString* theCode = [NSString stringWithFormat:@"%ld", currCode];
+NSString* result = nil;
+NSTimer* timer = nil;
 int value = [temp intValue];
 
 void loadPreferences() {
-
     prefs = [NSMutableDictionary dictionaryWithContentsOfFile:kSettingsPath];
 
     NSLog(@"ClassyLock--%@", [prefs description]);
@@ -63,28 +62,20 @@ void loadPreferences() {
     NSTimeInterval refreshInterval = refreshTime;
 
     if([timer isValid]) [timer invalidate];
-    if (kIsEnabled) {
-
-    timer = [NSTimer scheduledTimerWithTimeInterval:refreshInterval target:[ClassyHelper sharedInstance] selector:@selector(refreshWeather) userInfo:nil repeats:YES];
-    NSLog(@"ClassyLock--timer initialized");
-    NSLog(@"ClassyLock--%f", refreshInterval);
+    if(kIsEnabled) {
+    	timer = [NSTimer scheduledTimerWithTimeInterval:refreshInterval target:[ClassyHelper sharedInstance] selector:@selector(refreshWeather) userInfo:nil repeats:YES];
+    	NSLog(@"ClassyLock--timer initialized");
+    	NSLog(@"ClassyLock--%f", refreshInterval);
+    } else {
+    	[timer invalidate];
+    	timer = nil;
     }
-    if (!kIsEnabled) {
-
-        [timer invalidate];
-        timer = nil;
-
-    }
-
 }
 
 %hook SBLockScreenView
-
-- (void)glintyAnimationDidStart {
-
-if (kIsEnabled) {
-
-	if (kChangeWall) {
+-(void)glintyAnimationDidStart {
+if(kIsEnabled) {
+	if(kChangeWall) {
         backImage = kDarkMode ? [CustUIImage imageWithColor:[UIColor blackColor]] : [CustUIImage imageWithColor:[UIColor whiteColor]];
 
 		// Getting the _lockscreenWallpaperView ivar
@@ -108,13 +99,12 @@ if (kIsEnabled) {
     [resultLabel removeFromSuperview];
     [wearLabel removeFromSuperview];
 
-    NSString *temp = [[[WeatherPreferences sharedPreferences] localWeatherCity] temperature];
+    NSString* temp = [[[WeatherPreferences sharedPreferences] localWeatherCity] temperature];
     int value = [temp intValue];
     long currCode = [[[WeatherPreferences sharedPreferences] localWeatherCity] conditionCode];
-    NSString *theCode = [NSString stringWithFormat:@"%ld", currCode];
+    NSString* theCode = [NSString stringWithFormat:@"%ld", currCode];
 
 	switch ([theCode intValue]) {
-
         case 0:
             result = @"Something is probably wrong with ClassyLock";
             break;
@@ -223,9 +213,8 @@ if (kIsEnabled) {
             break;
     }
 
-    NSString *unit = nil;
-    if (![[WeatherPreferences sharedPreferences] isCelsius]) {
-
+    NSString* unit = nil;
+    if(![[WeatherPreferences sharedPreferences] isCelsius]) {
         //Convert to Fahrenheit
         unit = @"F";
         value = value*9;
@@ -234,17 +223,12 @@ if (kIsEnabled) {
         NSString *fahren = [NSString stringWithFormat:@"%d", value];
         temp = fahren;
         NSLog(@"ClassyLock--converted to Fahrenheit");
-
-    }
-    //If celsius, return C
-    else {
-
+    } else { //If celsius, return C
         unit = @"C";
         NSLog(@"ClassyLock--stayed in Celsius");
-
     }
 
-	NSDateFormatter *DateFormatter=[[NSDateFormatter alloc] init];
+	NSDateFormatter* DateFormatter=[[NSDateFormatter alloc] init];
 	[DateFormatter setDateFormat:@"hh:mm"];
 	NSLog(@"ClassyLock--%@",[DateFormatter stringFromDate:[NSDate date]]);
 
@@ -264,15 +248,14 @@ if (kIsEnabled) {
 	resultLabel.adjustsFontSizeToFitWidth = YES;
 	wearLabel.adjustsFontSizeToFitWidth = YES;
 
-	if (!kDarkMode){
+	if(!kDarkMode) {
 		[newTime setTextColor:[UIColor blackColor]];
 		[fuckLabel setTextColor:[UIColor blackColor]];
 		[shitLabel setTextColor:[UIColor blackColor]];
 		[tempLabel setTextColor:[UIColor blackColor]];
 		[resultLabel setTextColor:[UIColor blackColor]];
 		[wearLabel setTextColor:[UIColor blackColor]];
-	}
-	else if (kDarkMode) {
+	} else {
 		[newTime setTextColor:[UIColor whiteColor]];
 		[fuckLabel setTextColor:[UIColor whiteColor]];
 		[shitLabel setTextColor:[UIColor whiteColor]];
@@ -306,16 +289,15 @@ if (kIsEnabled) {
 	wearLabel.textAlignment = NSTextAlignmentLeft;
 
 	newTime.text = [NSString stringWithFormat:@"%@", [DateFormatter stringFromDate:[NSDate date]]];
-	if (kShouldShowTime || kShouldShowTime == nil) {
+	if(kShouldShowTime || kShouldShowTime == nil) {
         [wind addSubview:newTime];
     }
 
-	if ([temp intValue] <= kFreezingBound && ([kFreezing isEqual:@""] || kFreezing==nil)) {
+	if([temp intValue] <= kFreezingBound && ([kFreezing isEqual:@""] || kFreezing==nil)) {
 		curseLabel.text = [NSString stringWithFormat:@"Fucking freezing,"];
 		[curseLabel setTextColor:[UIColor colorWithRed:0.0/255.0 green:40.0/255.0 blue:225.0/255.0 alpha:1]];
 		NSLog(@"ClassyLock-%@", temp);
-	}
-	else if ([temp intValue] <= kFreezingBound && (![kFreezing isEqual:@""] && kFreezing!=nil)) {
+	} else if ([temp intValue] <= kFreezingBound && (![kFreezing isEqual:@""] && kFreezing!=nil)) {
 		curseLabel.text = kFreezing;
 		[curseLabel setTextColor:[UIColor colorWithRed:0.0/255.0 green:40.0/255.0 blue:225.0/255.0 alpha:1]];
 		NSLog(@"ClassyLock-%@", temp);
@@ -324,28 +306,25 @@ if (kIsEnabled) {
 		curseLabel.text= [NSString stringWithFormat:@"Cold as"];
 		[curseLabel setTextColor:[UIColor colorWithRed:0.0/255.0 green:75.0/255.0 blue:150.0/255.0 alpha:1]];
 		NSLog(@"ClassyLock-%@", temp);
-	}
-	else if ([temp intValue] > kFreezingBound && [temp intValue] <= kColdBound && (![kCold isEqual:@""] && kCold!=nil)) {
+	} else if ([temp intValue] > kFreezingBound && [temp intValue] <= kColdBound && (![kCold isEqual:@""] && kCold!=nil)) {
 		curseLabel.text = kCold;
 		[curseLabel setTextColor:[UIColor colorWithRed:0.0/255.0 green:75.0/255.0 blue:150.0/255.0 alpha:1]];
 		NSLog(@"ClassyLock-%@", temp);
 	}
-	if ([temp intValue] > kColdBound && [temp intValue] <= kWarmBound && ([kWarm isEqual:@""] || kWarm==nil)) {
+	if([temp intValue] > kColdBound && [temp intValue] <= kWarmBound && ([kWarm isEqual:@""] || kWarm==nil)) {
 		curseLabel.text= [NSString stringWithFormat:@"Warm as"];
 		[curseLabel setTextColor:[UIColor colorWithRed:255/255.0 green:150.0/255.0 blue:0.0/255.0 alpha:1]];
 		NSLog(@"ClassyLock-%@", temp);
-	}
-	else if ([temp intValue] > kColdBound && [temp intValue] <= kWarmBound && (![kWarm isEqual:@""] && kWarm!=nil)) {
+	} else if ([temp intValue] > kColdBound && [temp intValue] <= kWarmBound && (![kWarm isEqual:@""] && kWarm!=nil)) {
 		curseLabel.text = kWarm;
 		[curseLabel setTextColor:[UIColor colorWithRed:255/255.0 green:150.0/255.0 blue:0.0/255.0 alpha:1]];
 		NSLog(@"ClassyLock-%@", temp);
 	}
-	if ([temp intValue] > kWarmBound && ([kBurning isEqual:@""] || kBurning==nil)){
+	if([temp intValue] > kWarmBound && ([kBurning isEqual:@""] || kBurning==nil)){
 		curseLabel.text= [NSString stringWithFormat:@"Fucking burning,"];
 		[curseLabel setTextColor:[UIColor colorWithRed:225.0/255.0 green:40.0/255.0 blue:0.0/255.0 alpha:1]];
 		NSLog(@"ClassyLock-%@", temp);
-	}
-	else if ([temp intValue] > kWarmBound && ([kBurning isEqual:@""] && kBurning!=nil)) {
+	} else if ([temp intValue] > kWarmBound && ([kBurning isEqual:@""] && kBurning!=nil)) {
 		curseLabel.text = kBurning;
 		[curseLabel setTextColor:[UIColor colorWithRed:225.0/255.0 green:40.0/255.0 blue:0.0/255.0 alpha:1]];
 		NSLog(@"ClassyLock-%@", temp);
@@ -359,37 +338,33 @@ if (kIsEnabled) {
 	[wind addSubview:shitLabel];
 
 	tempLabel.text = [NSString stringWithFormat:@"%@° %@", temp, unit];
-	if (kShouldShowTemp || kShouldShowTemp == nil) {
+	if(kShouldShowTemp || kShouldShowTemp == nil) {
         [wind addSubview:tempLabel];
     }
 
 	resultLabel.text = [NSString stringWithFormat:@"%@", result];
-	if (kShouldShowCondition || kShouldShowCondition == nil) {
+	if(kShouldShowCondition || kShouldShowCondition == nil) {
         [wind addSubview:resultLabel];
     }
 
-	if (value <= kFreezingBound && ([kSmallFreezing isEqual:@""] || kSmallFreezing==nil)) {
+	if(value <= kFreezingBound && ([kSmallFreezing isEqual:@""] || kSmallFreezing==nil)) {
 		wearLabel.text = [NSString stringWithFormat:@"Fuck you, nature."];
-	}
-	else if (value <= kFreezingBound && (![kSmallFreezing isEqual:@""] && kSmallFreezing!=nil)) {
+	} else if (value <= kFreezingBound && (![kSmallFreezing isEqual:@""] && kSmallFreezing!=nil)) {
 		wearLabel.text = kSmallFreezing;
 	}
-	if (value > kFreezingBound && value <= kColdBound && ([kSmallCold isEqual:@""] || kSmallCold==nil)) {
+	if(value > kFreezingBound && value <= kColdBound && ([kSmallCold isEqual:@""] || kSmallCold==nil)) {
 		wearLabel.text= [NSString stringWithFormat:@"Pack a coat, fuckers."];
-	}
-	else if (value > kFreezingBound && value <= kColdBound && (![kSmallCold isEqual:@""] && kSmallCold!=nil)) {
+	} else if (value > kFreezingBound && value <= kColdBound && (![kSmallCold isEqual:@""] && kSmallCold!=nil)) {
 		wearLabel.text = kSmallCold;
 	}
-	if (value > kColdBound && value <= kWarmBound && ([kSmallWarm isEqual:@""] || kSmallWarm==nil)) {
+	if(value > kColdBound && value <= kWarmBound && ([kSmallWarm isEqual:@""] || kSmallWarm==nil)) {
 		wearLabel.text= [NSString stringWithFormat:@"Time to go outside for once!"];
-	}
-	else if (value > kColdBound && value <= kWarmBound && (![kSmallWarm isEqual:@""] && kSmallWarm!=nil)) {
+	} else if (value > kColdBound && value <= kWarmBound && (![kSmallWarm isEqual:@""] && kSmallWarm!=nil)) {
 		wearLabel.text = kSmallWarm;
 	}
-	if (value > kWarmBound && ([kSmallBurning isEqual:@""] || kSmallBurning==nil)){
+	if(value > kWarmBound && ([kSmallBurning isEqual:@""] || kSmallBurning==nil)){
 		wearLabel.text= [NSString stringWithFormat:@"Wear shorts or some shit."];
-	}
-	else if (value > kWarmBound && ([kSmallBurning isEqual:@""] && kSmallBurning!=nil)) {
+	} else if (value > kWarmBound && ([kSmallBurning isEqual:@""] && kSmallBurning!=nil)) {
 		wearLabel.text = kSmallBurning;
 	}
 	[wind addSubview:wearLabel];
@@ -406,11 +381,7 @@ if (kIsEnabled) {
     [swipe setDirection:UISwipeGestureRecognizerDirectionLeft];
     [swipe setDelaysTouchesBegan:YES];
     [wind addGestureRecognizer:swipe];
-
-}
-
-else if (!kIsEnabled) {
-
+} else {
 	[newBack removeFromSuperview];
     [newTime removeFromSuperview];
     [curseLabel removeFromSuperview];
@@ -419,14 +390,11 @@ else if (!kIsEnabled) {
     [tempLabel removeFromSuperview];
     [resultLabel removeFromSuperview];
     [wearLabel removeFromSuperview];
-
 }
-
 %orig;
-
 }
 
-- (void)glintyAnimationDidStop {
+-(void)glintyAnimationDidStop {
     [newBack removeFromSuperview];
     [newTime removeFromSuperview];
     [curseLabel removeFromSuperview];
