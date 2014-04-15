@@ -6,11 +6,9 @@
 	<array>
 		<dict>
 			<key>cell</key>
-			<string>PSStaticTextCell</string>
-			<key>cellClass</key>
+			<string>PSGroupCell</string>
+			<key>footerCellClass</key>
 			<string>TestCell</string>
-			<key>height</key>
-			<real>60</real>
 </dict>
 		<dict>
 			<key>cell</key>

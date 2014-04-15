@@ -28,9 +28,11 @@
 
 @implementation TestCell
 //- (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString*)identifier {
--(id)initWithFrame:(CGRect)frame specifier:(id)specifier {
+//-(id)initWithFrame:(CGRect)frame specifier:(id)specifier {
+- (id)initWithSpecifier:(PSSpecifier *)specifier {
     //if ((self = [super initWithStyle:style reuseIdentifier:identifier])) {
-    if ((self = [super initWithFrame:frame specifier:specifier])) {
+    //if ((self = [super initWithFrame:frame specifier:specifier])) {
+    if (self = [super initWithSpecifier:specifier]) {
         // Do your stuff, for example:
         // _label = [[UILabel alloc] init...];
 

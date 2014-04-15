@@ -524,7 +524,7 @@ else if (!kIsEnabled) {
 
     if([[UIScreen mainScreen] bounds].size.height == 568) {
     	//iphone 4 inch screen (5, 5c, 5s)
-    	HEIGHT = 568;
+        HEIGHT = 568;
 	}
 
     %init();
