@@ -25,14 +25,18 @@
 #define kColdBound [[[NSDictionary dictionaryWithContentsOfFile:kSettingsPath] objectForKey:@"coldBound"] intValue]
 #define kWarmBound [[[NSDictionary dictionaryWithContentsOfFile:kSettingsPath] objectForKey:@"warmBound"] intValue]
 
+@interface SBLockScreenScrollView : UIScrollView
+@end
+
 int HEIGHT = 420;
-UILabel *newTime = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 310, HEIGHT)];
-UILabel *curseLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 310, HEIGHT)];
-UILabel *fuckLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 310, HEIGHT)];
-UILabel *shitLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 310, HEIGHT)];
-UILabel *tempLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 310, HEIGHT)];
-UILabel *resultLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 310, HEIGHT)];
-UILabel *wearLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 310, HEIGHT)];
+int WIDTH = [[UIScreen mainScreen] bounds].size.width;
+UILabel *newTime = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, WIDTH, HEIGHT)];
+UILabel *curseLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, WIDTH, HEIGHT)];
+UILabel *fuckLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, WIDTH, HEIGHT)];
+UILabel *shitLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, WIDTH, HEIGHT)];
+UILabel *tempLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, WIDTH, HEIGHT)];
+UILabel *resultLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, WIDTH, HEIGHT)];
+UILabel *wearLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, WIDTH, HEIGHT)];
 NSMutableDictionary *prefs = nil;
 long currCode = nil;
 NSString *temp = nil;
@@ -40,6 +44,7 @@ NSString *theCode = [NSString stringWithFormat:@"%ld", currCode];
 NSString *result = nil;
 NSTimer *timer = nil;
 int value = [temp intValue];
+SBLockScreenScrollView* wind;
 
 void loadPreferences() {
 
@@ -97,7 +102,10 @@ if (kIsEnabled) {
 		[content setImage:backImage];
 	}
 
-    UIView* wind = MSHookIvar<UIView *>(self, "_foregroundView");
+    //UIView* wind = MSHookIvar<UIView *>(self, "_foregroundView");
+    SBLockScreenViewController* lockViewController = MSHookIvar<SBLockScreenViewController*>([%c(SBLockScreenManager) sharedInstance], "_lockScreenViewController");
+    SBLockScreenView* lockView = MSHookIvar<SBLockScreenView*>(lockViewController, "_view");
+    wind = MSHookIvar<SBLockScreenScrollView*>(lockView, "_foregroundScrollView");
 
     [newBack removeFromSuperview];
     [newTime removeFromSuperview];
@@ -289,13 +297,13 @@ if (kIsEnabled) {
 	resultLabel.numberOfLines = 1;
 	wearLabel.numberOfLines = 1;
 
-	[newTime setCenter:wind.center];
-	[curseLabel setCenter:wind.center];
-	[fuckLabel setCenter:wind.center];
-	[shitLabel setCenter:wind.center];
-	[tempLabel setCenter:wind.center];
-	[resultLabel setCenter:wind.center];
-	[wearLabel setCenter:wind.center];
+	[newTime setCenter:CGPointMake(wind.center.x+WIDTH, wind.center.y)];
+	[curseLabel setCenter:CGPointMake(wind.center.x+WIDTH, wind.center.y)];
+	[fuckLabel setCenter:CGPointMake(wind.center.x+WIDTH, wind.center.y)];
+	[shitLabel setCenter:CGPointMake(wind.center.x+WIDTH, wind.center.y)];
+	[tempLabel setCenter:CGPointMake(wind.center.x+WIDTH, wind.center.y)];
+	[resultLabel setCenter:CGPointMake(wind.center.x+WIDTH, wind.center.y)];
+	[wearLabel setCenter:CGPointMake(wind.center.x+WIDTH, wind.center.y)];
 
 	newTime.textAlignment = NSTextAlignmentCenter;
 	curseLabel.textAlignment = NSTextAlignmentLeft;
@@ -394,18 +402,13 @@ if (kIsEnabled) {
 	}
 	[wind addSubview:wearLabel];
 
-	newTime.center = CGPointMake(wind.center.x, wind.center.y-(HEIGHT/5.16363636));
-	curseLabel.center = CGPointMake(wind.center.x+5, wind.center.y+(HEIGHT/7.1));
-	fuckLabel.center = CGPointMake(wind.center.x+5, wind.center.y+(HEIGHT/3.78666667));
-	shitLabel.center = CGPointMake(wind.center.x+5, wind.center.y+(HEIGHT/2.7047619));
-	tempLabel.center = CGPointMake(wind.center.x, wind.center.y-(HEIGHT/2.46956522));
-	resultLabel.center = CGPointMake(wind.center.x, wind.center.y-(HEIGHT/3.07027027));
-	wearLabel.center = CGPointMake(wind.center.x+10, wind.center.y+(HEIGHT/2.18461538));
-
-    UISwipeGestureRecognizer *swipe = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(getSwipe)];
-    [swipe setDirection:UISwipeGestureRecognizerDirectionLeft];
-    [swipe setDelaysTouchesBegan:YES];
-    [wind addGestureRecognizer:swipe];
+	newTime.center = CGPointMake(wind.center.x+WIDTH, wind.center.y-(HEIGHT/5.16363636));
+	curseLabel.center = CGPointMake(wind.center.x+5+WIDTH, wind.center.y+(HEIGHT/7.1));
+	fuckLabel.center = CGPointMake(wind.center.x+5+WIDTH, wind.center.y+(HEIGHT/3.78666667));
+	shitLabel.center = CGPointMake(wind.center.x+5+WIDTH, wind.center.y+(HEIGHT/2.7047619));
+	tempLabel.center = CGPointMake(wind.center.x+WIDTH, wind.center.y-(HEIGHT/2.46956522));
+	resultLabel.center = CGPointMake(wind.center.x+WIDTH, wind.center.y-(HEIGHT/3.07027027));
+	wearLabel.center = CGPointMake(wind.center.x+10+WIDTH, wind.center.y+(HEIGHT/2.18461538));
 
 }
 

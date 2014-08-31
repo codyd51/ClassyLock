@@ -1,4 +1,4 @@
-ARCHS = armv7 armv7s arm64
+ARCHS = armv7
 GO_EASY_ON_ME=1
 include theos/makefiles/common.mk
 
